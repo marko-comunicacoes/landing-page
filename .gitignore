@@ -1,5 +1,3 @@
-# Dependências
-node_modules/
 
 # Segredos
 .env
@@ -7,9 +5,8 @@ node_modules/
 docker/.env
 sast-sca/sonarqube/.env
 
-# Dados persistentes (config publicada, uploads, pedidos)
-data/*
-!data/.gitkeep
+# Vercel CLI
+.vercel/
 
 # Relatórios de SAST / SCA
 sast-sca/trivy/reports/*

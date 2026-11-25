@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
-# Bearer CLI via Docker: SAST do código (app/src e app/public/assets/js).
+# Bearer CLI via Docker: SAST do código (app/assets/js).
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(cd "${SCRIPT_DIR}/../.." && pwd)"
 REPORT_DIR="${SCRIPT_DIR}/reports"
-SKIP="app/tests,data,docs,sast-sca,app/public/assets/video,app/public/assets/img,app/public/assets/fonts"
+SKIP="docs,sast-sca,app/assets/video,app/assets/img,app/assets/fonts"
 mkdir -p "${REPORT_DIR}"
 
 for FORMATO in json html; do

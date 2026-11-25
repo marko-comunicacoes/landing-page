@@ -2,22 +2,18 @@
 (function () {
   'use strict';
   var M = window.MARKO, esc = M.esc;
-  var preview = /[?&]preview/.test(location.search);
   var cfg = M.carregar();
-  /* Tema escolhido pelo visitante no botão do topo (sobrepõe o padrão do admin).
-     Na prévia do admin é ignorado, para o admin ver sempre o tema padrão. */
+  /* Tema escolhido pelo visitante no botão do topo (sobrepõe o tema padrão de config.js) */
   var CHAVE_TEMA = 'marko.tema.visitante';
   var temaVisitante = null;
-  if (!preview) { try { temaVisitante = localStorage.getItem(CHAVE_TEMA); } catch (e) { /* sem storage */ } }
+  try { temaVisitante = localStorage.getItem(CHAVE_TEMA); } catch (e) { /* sem storage */ }
   if (temaVisitante !== 'claro' && temaVisitante !== 'escuro') temaVisitante = null;
   var servicoAtivo = null;
 
   var A = window.MK_ANIM || { marcar: function () {}, revelar: function () {}, ligar: function () {}, ligado: function () { return false; }, repetir: function () {}, espiao: function () {}, fecharDialogo: function (d) { d.close(); } };
   M.injetarIcones(document);
-  /* Na prévia do admin o site é redesenhado a cada tecla: sem animações de entrada */
-  if (preview) { document.body.classList.add('preview'); A.ligar(false); }
-  /* Selo "exemplo" (texto ainda não aprovado) só aparece na prévia do admin */
-  else document.body.classList.add('sem-exemplos');
+  /* Selo "exemplo" (texto ainda não aprovado) não aparece para o visitante */
+  document.body.classList.add('sem-exemplos');
 
   function pegar(obj, caminho) { return caminho.split('.').reduce(function (o, k) { return o == null ? o : o[k]; }, obj); }
 
@@ -147,7 +143,7 @@
   function render() {
     aplicarTema();
     textos(); hero(); faixa(); mosaico(); servicos(); clientes(); sobre(); depoimentos();
-    if (!preview) animar();
+    animar();
   }
 
   function temaAtual() { return temaVisitante || cfg.tema.padrao || 'claro'; }
@@ -164,7 +160,7 @@
 
   document.getElementById('botao-tema').addEventListener('click', function () {
     temaVisitante = temaAtual() === 'claro' ? 'escuro' : 'claro';
-    if (!preview) { try { localStorage.setItem(CHAVE_TEMA, temaVisitante); } catch (e) { /* só nesta visita */ } }
+    try { localStorage.setItem(CHAVE_TEMA, temaVisitante); } catch (e) { /* só nesta visita */ }
     var raiz = document.documentElement;
     if (A.ligado()) { raiz.classList.add('trocando-tema'); clearTimeout(aplicarTema.t); aplicarTema.t = setTimeout(function () { raiz.classList.remove('trocando-tema'); }, 600); }
     aplicarTema();
@@ -232,51 +228,31 @@
   });
   menu.addEventListener('click', function (e) { if (e.target.closest('a')) { menu.hidden = true; menuBtn.setAttribute('aria-expanded', 'false'); } });
 
+  /* Pedido de orçamento: monta a mensagem e abre o WhatsApp da Marko (site estático, sem servidor) */
   var form = document.getElementById('form-contato');
   form.addEventListener('submit', function (e) {
     e.preventDefault();
     var nome = document.getElementById('f-nome'), tel = document.getElementById('f-tel'), st = document.getElementById('form-status');
-    var botao = form.querySelector('button[type="submit"]');
     var faltando = [];
     [nome, tel].forEach(function (c) { var vazio = !c.value.trim(); c.setAttribute('aria-invalid', String(vazio)); if (vazio) faltando.push(c); });
     if (tel.value.trim() && tel.value.replace(/\D/g, '').length < 10) { tel.setAttribute('aria-invalid', 'true'); faltando.push(tel); }
     if (faltando.length) { st.textContent = 'Preencha seu nome e um WhatsApp com DDD para a gente responder.'; faltando[0].focus(); return; }
-    if (preview) { st.textContent = 'Prévia do admin: o pedido não é enviado daqui.'; return; }
 
     var servicos = Array.prototype.map.call(form.querySelectorAll('input[name="servicos"]:checked'), function (c) { return c.value; });
-    var pedido = { nome: nome.value, tel: tel.value, empresa: document.getElementById('f-empresa').value, servicos: servicos, msg: document.getElementById('f-msg').value, site: document.getElementById('f-site').value };
-    botao.disabled = true; form.setAttribute('aria-busy', 'true');
-    st.textContent = 'Enviando…';
-    fetch('api/contato', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(pedido) })
-      .then(function (r) { return r.json().catch(function () { return {}; }).then(function (d) { return { ok: r.ok, d: d }; }); })
-      .then(function (r) {
-        if (!r.ok) throw new Error(r.d.erro || 'Não foi possível enviar agora.');
-        form.reset();
-        st.innerHTML = 'Pedido recebido! A gente responde em breve. Se preferir, <a data-whats-pedido href="#" target="_blank" rel="noopener">continue no WhatsApp →</a>';
-        var a = st.querySelector('[data-whats-pedido]');
-        var txt = 'Olá, Marko! Sou ' + pedido.nome.trim() + (pedido.empresa.trim() ? ', da ' + pedido.empresa.trim() : '') + '. Acabei de pedir um orçamento pelo site' + (servicos.length ? ' (' + servicos.join(', ') + ')' : '') + '.';
-        a.href = 'https://wa.me/' + String(cfg.contato.whatsapp || '').replace(/\D/g, '') + '?text=' + encodeURIComponent(txt);
-        A.repetir(st, 'enviado');
-      })
-      .catch(function (err) {
-        st.textContent = (err && err.message ? err.message : 'Não foi possível enviar agora.') + ' Se preferir, fale com a gente pelo WhatsApp.';
-      })
-      .then(function () { botao.disabled = false; form.removeAttribute('aria-busy'); });
-  });
+    var empresa = document.getElementById('f-empresa').value.trim(), msg = document.getElementById('f-msg').value.trim();
+    var linhas = ['Olá, Marko! Vim pelo site e quero um orçamento.', '', '*Nome:* ' + nome.value.trim(), '*WhatsApp:* ' + tel.value.trim()];
+    if (empresa) linhas.push('*Empresa:* ' + empresa);
+    if (servicos.length) linhas.push('*Preciso de:* ' + servicos.join(', '));
+    if (msg) linhas.push('', msg);
+    var url = 'https://wa.me/' + String(cfg.contato.whatsapp || '').replace(/\D/g, '') + '?text=' + encodeURIComponent(linhas.join('\n'));
 
-  /* Atualização vinda do admin (prévia) ou de outra aba */
-  window.addEventListener('message', function (e) {
-    var d = e.data;
-    /* só a página do admin (mesma origem) manda configuração, e só para a prévia */
-    if (!preview || e.origin !== location.origin || !d || d.tipo !== 'marko:config') return;
-    cfg = d.config;
-    if (d.servico) servicoAtivo = d.servico;
-    render();
-    if (d.rolar) {
-      /* scrollTo em vez de scrollIntoView: este não arrasta a página do admin junto */
-      var alvo = document.getElementById(d.rolar), topo = document.querySelector('.topo');
-      if (alvo) window.scrollTo(0, d.rolar === 'inicio' ? 0 : alvo.getBoundingClientRect().top + window.scrollY - (topo ? topo.offsetHeight : 0));
-    }
+    /* sem 'noopener' nas opções: com ele o navegador sempre devolve null e não dá para saber se abriu */
+    var aba = window.open(url, '_blank');
+    if (aba) aba.opener = null;
+    st.innerHTML = aba === null
+      ? 'Seu navegador bloqueou a nova aba. <a href="' + esc(url) + '" target="_blank" rel="noopener">Abrir o WhatsApp com o pedido →</a>'
+      : 'Abrimos o WhatsApp com seu pedido pronto. É só enviar a mensagem. <a href="' + esc(url) + '" target="_blank" rel="noopener">Não abriu? Clique aqui →</a>';
+    A.repetir(st, 'enviado');
   });
 
   render();

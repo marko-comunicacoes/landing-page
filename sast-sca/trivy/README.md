@@ -1,7 +1,7 @@
 # Trivy
 
 ```bash
-docker compose build          # para escanear a imagem também
+docker compose -f docker/compose.yaml build   # para escanear a imagem de homologação também
 ./sast-sca/trivy/run-trivy.sh # relatórios em sast-sca/trivy/reports/ (txt, html, json)
 SEVERITY=CRITICAL,HIGH ./sast-sca/trivy/run-trivy.sh
 ```

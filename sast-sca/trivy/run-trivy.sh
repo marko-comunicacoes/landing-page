@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Trivy via Docker: IaC (Dockerfile/compose), filesystem (vulnerabilidades e segredos) e a imagem marko-landing.
+# Trivy via Docker: IaC (Dockerfile/compose de homologação), filesystem (vulnerabilidades e segredos) e a imagem marko-landing.
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -7,7 +7,7 @@ PROJECT_ROOT="$(cd "${SCRIPT_DIR}/../.." && pwd)"
 REPORT_DIR="${SCRIPT_DIR}/reports"
 TRIVY_IMAGE="${TRIVY_IMAGE:-aquasec/trivy:latest}"
 SEVERITY="${SEVERITY:-CRITICAL,HIGH,MEDIUM}"
-APP_IMAGE="${APP_IMAGE:-marko-landing:latest}"
+APP_IMAGE="${APP_IMAGE:-marko-landing-homol:latest}"
 
 mkdir -p "${REPORT_DIR}"
 
@@ -29,14 +29,14 @@ IGNORE_ARG=()
 echo "=== [1/3] IaC / misconfigurations ==="
 docker run --rm -v trivy-cache:/root/.cache/ -v "${PROJECT_ROOT}:/workspace:ro" -v "${REPORT_DIR}:/reports" \
   "${TRIVY_IMAGE}" config --severity "${SEVERITY}" "${IGNORE_ARG[@]}" \
-  --skip-dirs /workspace/data --skip-dirs /workspace/.git --skip-dirs /workspace/sast-sca \
+  --skip-dirs /workspace/.git --skip-dirs /workspace/sast-sca \
   --format json --output /reports/trivy-config-report.json /workspace
 convert_report trivy-config-report
 
 echo "=== [2/3] Filesystem: vulnerabilidades e segredos ==="
 docker run --rm -v trivy-cache:/root/.cache/ -v "${PROJECT_ROOT}:/workspace:ro" -v "${REPORT_DIR}:/reports" \
   "${TRIVY_IMAGE}" fs --scanners vuln,secret --severity "${SEVERITY}" "${IGNORE_ARG[@]}" \
-  --skip-dirs /workspace/data --skip-dirs /workspace/.git --skip-dirs /workspace/sast-sca/trivy/reports \
+  --skip-dirs /workspace/.git --skip-dirs /workspace/sast-sca/trivy/reports \
   --skip-files /workspace/docker/.env --skip-files /workspace/sast-sca/sonarqube/.env --skip-files /workspace/.env \
   --format json --output /reports/trivy-fs-report.json /workspace
 convert_report trivy-fs-report
@@ -48,7 +48,7 @@ if docker image inspect "${APP_IMAGE}" >/dev/null 2>&1; then
     --format json --output /reports/trivy-image-report.json "${APP_IMAGE}"
   convert_report trivy-image-report
 else
-  echo ">> Imagem não encontrada. Rode 'docker compose build' antes."
+  echo ">> Imagem não encontrada. Rode 'docker compose -f docker/compose.yaml build' antes."
 fi
 
 echo ">> Relatórios em ${REPORT_DIR}"

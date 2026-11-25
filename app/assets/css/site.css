@@ -156,7 +156,4 @@ html.anim .contato__titulo[data-revelar]:not(.visivel) .mk-serif { transform: tr
 .caixa__legenda { margin: 0; padding: var(--space-3) var(--space-4); font-size: 14px; color: var(--ink-soft); }
 .caixa__fechar { position: absolute; top: var(--space-2); right: var(--space-2); z-index: 1; width: 40px; height: 40px; display: grid; place-items: center; border: 0; border-radius: 50%; background: var(--surface-deep); color: var(--ink); cursor: pointer; }
 
-/* Campo-armadilha contra robôs (fora da tela, invisível para leitores de tela) */
-.armadilha { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
 .form__status a { color: inherit; font-weight: 700; }
-.form[aria-busy="true"] button[type="submit"] { opacity: .6; cursor: progress; }

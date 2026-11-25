@@ -1,6 +1,5 @@
 /* Marko Comunicações — configuração do site (o que o admin edita)
-   PADRAO é o conteúdo original. O que o admin publica fica no servidor (data/config.json)
-   e chega aqui por /config-publicada.js (window.MARKO_PUBLICADO), mesclado por cima do padrão. */
+   Para mudar textos, cores, fontes, fotos e vídeos do site, edite PADRAO abaixo e faça o deploy. */
 (function () {
   'use strict';
 
@@ -187,11 +186,7 @@
     return extra !== undefined ? extra : base;
   }
 
-  function carregar() {
-    var p = window.MARKO_PUBLICADO;
-    if (p && typeof p === 'object') return mesclar(clonar(PADRAO), p);
-    return clonar(PADRAO);
-  }
+  function carregar() { return clonar(PADRAO); }
 
   function acharFonte(papel, nome) {
     var lista = FONTES[papel] || [];
@@ -306,23 +301,8 @@
   }
   function icone(nome, cls) { return '<svg class="i' + (cls ? ' ' + cls : '') + '" aria-hidden="true"><use href="#i-' + nome + '"/></svg>'; }
 
-  /* Biblioteca de arquivos que já vêm na pasta (para o seletor do admin) */
-  var BIBLIOTECA = [
-    'portfolio/odontologia.jpg', 'portfolio/gastronomia-sushi.jpg', 'portfolio/gastronomia-parrilla.jpg', 'portfolio/bebida-praia.jpg',
-    'portfolio/oficina-mecanica.jpg', 'portfolio/oficina-fone.jpg', 'portfolio/lava-jato.jpg', 'portfolio/cafeteria.jpg', 'portfolio/cafe-cremoso.jpg',
-    'portfolio/moda-automotivo.jpg', 'portfolio/confeitaria-natal.jpg', 'portfolio/doces-natal.jpg', 'portfolio/amigas-piscina.jpg',
-    'portfolio/cerveja-servindo.jpg', 'portfolio/retrato-vermelho.jpg', 'portfolio/clinica-odontologica.jpg',
-    'gestao/antes.jpg', 'gestao/depois.jpg', 'gestao/feed-odontopediatria.jpg', 'gestao/feed-gt.jpg', 'gestao/feed-imobiliaria.jpg',
-    'pessoas/matheus-galdino.jpg', 'pessoas/rapha-vasconcelos.jpg', 'pessoas/paula-siqueira.jpg', 'pessoas/danilo-novelino.jpg',
-    'clientes/dra-paula-siqueira-odontopediatria.png', 'clientes/dra-paula-siqueira.png', 'clientes/arcadia.png', 'clientes/cinco.png',
-    'clientes/vita-simbolo.png', 'clientes/vita-wordmark.png', 'clientes/romeno-burger.jpg', 'clientes/colegio-educativo.png', 'clientes/gt.png',
-    'clientes/petdream.png', 'clientes/semas-pe.png', 'marca/marko-simbolo.jpg'
-  ].map(function (p) { return I + p; }).concat([
-    'bastidores-gravacao.mp4', 'cafeteria-atendimento.mp4', 'lancamento-imobiliario.mp4', 'confeitaria.mp4', 'campanha-uma-vida.mp4'
-  ].map(function (p) { return V + p; }));
-
   window.MARKO = {
-    PADRAO: PADRAO, PALETA: PALETA, FUNCOES: FUNCOES, PARES: PARES, FONTES: FONTES, BIBLIOTECA: BIBLIOTECA,
+    PADRAO: PADRAO, PALETA: PALETA, FUNCOES: FUNCOES, PARES: PARES, FONTES: FONTES,
     clonar: clonar, mesclar: mesclar, carregar: carregar, aplicarTema: aplicarTema, acharFonte: acharFonte,
     carregarFonteGoogle: carregarFonteGoogle, resolver: resolver, contraste: contraste, esc: esc, marcar: marcar, semMarcas: semMarcas, ehVideo: ehVideo,
     injetarIcones: injetarIcones, icone: icone

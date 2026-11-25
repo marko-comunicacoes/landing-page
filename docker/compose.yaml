@@ -1,0 +1,27 @@
+# HOMOLOGAÇÃO (produção é a Vercel).
+# Fica em docker/ e não na raiz: um compose.yaml na raiz faz a Vercel tentar rodar o projeto como container.
+# Uso, a partir da raiz do repositório:
+#   docker compose -f docker/compose.yaml up -d --build
+name: marko-landing-homol
+
+services:
+  site:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    image: marko-landing-homol:latest
+    container_name: marko-landing-homol
+    restart: unless-stopped
+    ports:
+      - "${BIND_ADDR:-127.0.0.1}:${HOST_PORT:-8090}:8080"
+    read_only: true
+    tmpfs:
+      - /tmp
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    deploy:
+      resources:
+        limits:
+          memory: 64m

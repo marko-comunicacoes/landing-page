@@ -1,25 +1,10 @@
-# Marko Comunicações — landing page + admin (Node puro, sem dependências de npm)
-# Build: contexto = app/ (ver compose.yaml). Exclusões em docker/Dockerfile.dockerignore.
-FROM node:22-alpine
+# Marko Comunicações — HOMOLOGAÇÃO. Produção é a Vercel (vercel.json na raiz).
+# Serve os mesmos arquivos estáticos de app/ com Nginx, sem root.
+FROM nginxinc/nginx-unprivileged:1.27-alpine
 
-ENV NODE_ENV=production \
-    PORT=3000 \
-    DATA_DIR=/data
+COPY --chown=root:root docker/nginx.conf /etc/nginx/conf.d/default.conf
+COPY --chown=root:root app/ /usr/share/nginx/html/
 
-WORKDIR /app
-
-COPY --chown=root:root package.json ./
-COPY --chown=root:root src ./src
-COPY --chown=root:root public ./public
-
-# /data recebe o volume com config publicada, uploads e pedidos; o resto da imagem é só leitura para o app
-RUN mkdir -p /data && chown node:node /data
-
-USER node
-EXPOSE 3000
-VOLUME ["/data"]
-
-HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
-  CMD node -e "fetch('http://127.0.0.1:'+(process.env.PORT||3000)+'/api/health').then(r=>process.exit(r.ok?0:1),()=>process.exit(1))"
-
-CMD ["node", "src/server.js"]
+EXPOSE 8080
+HEALTHCHECK --interval=30s --timeout=5s --start-period=5s --retries=3 \
+  CMD wget -q -O /dev/null http://127.0.0.1:8080/ || exit 1

@@ -1,8 +1,4 @@
-# Lido pelo BuildKit por estar ao lado do Dockerfile (equivale ao .dockerignore deste build).
-# O contexto é app/: só package.json, src/ e public/ entram na imagem.
-tests/
-node_modules/
-coverage/
-*.log
-.env
-.env.*
+# Lido pelo BuildKit por estar ao lado do Dockerfile. Só app/ e docker/nginx.conf entram na imagem.
+**
+!app/**
+!docker/nginx.conf
