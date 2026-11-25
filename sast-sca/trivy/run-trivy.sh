@@ -37,7 +37,7 @@ echo "=== [2/3] Filesystem: vulnerabilidades e segredos ==="
 docker run --rm -v trivy-cache:/root/.cache/ -v "${PROJECT_ROOT}:/workspace:ro" -v "${REPORT_DIR}:/reports" \
   "${TRIVY_IMAGE}" fs --scanners vuln,secret --severity "${SEVERITY}" "${IGNORE_ARG[@]}" \
   --skip-dirs /workspace/data --skip-dirs /workspace/.git --skip-dirs /workspace/sast-sca/trivy/reports \
-  --skip-files /workspace/docker/.env \
+  --skip-files /workspace/docker/.env --skip-files /workspace/sast-sca/sonarqube/.env --skip-files /workspace/.env \
   --format json --output /reports/trivy-fs-report.json /workspace
 convert_report trivy-fs-report
 
