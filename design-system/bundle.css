@@ -1,0 +1,132 @@
+/* Marko Comunicações — componentes (CSS puro, sem JS). Todas as cores, fontes, espaços e raios vêm de tokens.json. */
+
+.mk-root, .mk-section {
+  background: var(--surface);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 24px;
+}
+.mk-section {
+  padding-block: var(--space-24);
+  padding-left: max(var(--space-4), var(--gutter));
+  padding-right: max(var(--space-4), var(--gutter));
+}
+.mk-section--deep { background: var(--surface-deep); }
+@media (min-width: 900px) { .mk-section { padding-block: var(--space-32); } }
+.mk-inner { max-width: var(--content-max); margin-inline: auto; display: flex; flex-direction: column; gap: var(--space-12); }
+
+/* ---------- Button ---------- */
+.mk-btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: var(--space-1);
+  min-height: 48px; padding: var(--space-3) var(--space-8);
+  border-radius: var(--radius-pill); border: 1px solid transparent;
+  background: var(--accent); color: var(--on-accent);
+  font: 400 16px/20px var(--font-sans);
+  text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px;
+  cursor: pointer; transition: transform .15s ease, background-color .15s ease;
+}
+.mk-btn:hover { transform: translateY(-1px); text-decoration-thickness: 2px; }
+.mk-btn:focus-visible, .mk-tag:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; }
+.mk-btn--outline { background: transparent; color: var(--ink); border-color: var(--line); }
+.mk-btn--plain { text-decoration: none; }
+.mk-btn--wide { width: 100%; }
+.mk-btn__arrow { text-decoration: none; display: inline-block; }
+
+/* ---------- BrandTag ---------- */
+.mk-tag {
+  display: inline-flex; align-items: center; gap: var(--space-2);
+  padding: var(--space-1) var(--space-2) var(--space-1) var(--space-1);
+  background: var(--tag); color: var(--on-tag); border-radius: var(--radius-sm);
+  font: 400 16px/20px var(--font-sans); text-decoration: underline; text-underline-offset: 2px;
+}
+.mk-tag img { width: 24px; height: 24px; border-radius: 50%; display: block; }
+
+/* ---------- BracketLabel ---------- */
+.mk-bracket {
+  position: relative; display: inline-block; padding: var(--space-2) var(--space-3);
+  font: 400 13px/16px var(--font-sans); letter-spacing: .06em; text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.mk-bracket::before, .mk-bracket::after {
+  content: ""; position: absolute; width: 10px; height: 10px; border: 0 solid var(--line);
+}
+.mk-bracket::before { top: 0; left: 0; border-top-width: 1px; border-left-width: 1px; }
+.mk-bracket::after { right: 0; bottom: 0; border-right-width: 1px; border-bottom-width: 1px; }
+.mk-bracket--text { text-transform: none; letter-spacing: 0; font-size: 16px; line-height: 24px; padding: var(--space-4) var(--space-6); max-width: 46ch; }
+.mk-bracket--text::before, .mk-bracket--text::after { width: 20px; height: 20px; }
+
+/* ---------- SectionTitle ---------- */
+.mk-title {
+  margin: 0; font-family: var(--font-sans); font-weight: 400;
+  font-size: clamp(40px, 6vw, 72px); line-height: 1; letter-spacing: -0.02em;
+  color: var(--ink); text-wrap: balance;
+}
+.mk-title em { font-style: italic; }
+.mk-title strong { font-weight: 700; }
+.mk-title .mk-serif { font-family: var(--font-serif); font-weight: 400; letter-spacing: 0; }
+.mk-title-row { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: var(--space-6); }
+.mk-note { font: 400 12px/16px var(--font-sans); letter-spacing: .04em; text-transform: uppercase; color: var(--ink-soft); }
+
+/* ---------- DotGrid ---------- */
+.mk-dots {
+  width: calc(var(--space-6) * 5); height: calc(var(--space-6) * 4);
+  background-image: radial-gradient(circle, var(--line) 1.6px, transparent 2px);
+  background-size: var(--space-6) var(--space-6);
+}
+
+/* ---------- Hero ---------- */
+.mk-hero { position: relative; display: flex; flex-direction: column; gap: var(--space-6); overflow: hidden; }
+.mk-hero__top { display: flex; justify-content: space-between; align-items: flex-start; gap: var(--space-4); }
+.mk-hero__l1 { margin: 0; font: italic 400 clamp(56px, 11vw, 120px)/.95 var(--font-sans); letter-spacing: -.03em; color: var(--ink-soft); }
+.mk-hero__l2row { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-6); }
+.mk-hero__l2 { margin: 0; font: 700 clamp(60px, 12vw, 128px)/.9 var(--font-display); letter-spacing: .01em; color: var(--ink-soft); }
+
+/* ---------- PhotoMosaic ---------- */
+.mk-mosaic { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); grid-auto-rows: 120px; gap: var(--space-2); }
+.mk-mosaic > * { margin: 0; overflow: hidden; border-radius: var(--radius-none); background: var(--surface-deep); }
+.mk-mosaic img, .mk-mosaic video { width: 100%; height: 100%; object-fit: cover; display: block; }
+.mk-mosaic .mk-tall { grid-row: span 2; }
+.mk-mosaic .mk-wide { grid-column: span 2; }
+@media (max-width: 640px) { .mk-mosaic { grid-template-columns: repeat(2, minmax(0, 1fr)); } .mk-mosaic .mk-wide { grid-column: span 2; } }
+
+/* ---------- ServiceGrid ---------- */
+.mk-services { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-6); }
+@media (max-width: 720px) { .mk-services { grid-template-columns: minmax(0, 1fr); } }
+
+/* ---------- ClientWall ---------- */
+.mk-clients {
+  display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--space-6);
+  padding: var(--space-8); background: var(--panel); border-radius: var(--radius-lg);
+}
+.mk-clients__tile {
+  aspect-ratio: 1 / 1; max-width: 100%; display: grid; place-items: center; padding: var(--space-3);
+  background: var(--panel-tile); border-radius: var(--radius-md); overflow: hidden;
+}
+.mk-clients__tile img { max-width: 100%; max-height: 100%; object-fit: contain; }
+@media (max-width: 640px) { .mk-clients { grid-template-columns: repeat(2, minmax(0, 1fr)); padding: var(--space-4); gap: var(--space-4); } }
+
+/* ---------- ProcessSteps ---------- */
+.mk-steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--space-8); }
+.mk-step { display: flex; flex-direction: column; gap: var(--space-3); padding-top: var(--space-4); border-top: 1px solid var(--line); }
+.mk-step__n { font: 700 14px/16px var(--font-sans); letter-spacing: .08em; color: var(--muted); }
+.mk-step__t { margin: 0; font: 700 24px/1.25 var(--font-sans); color: var(--ink); text-transform: capitalize; }
+.mk-step__p { margin: 0; color: var(--ink-soft); max-width: 40ch; }
+
+/* ---------- Testimonial ---------- */
+.mk-quote { margin: 0; display: flex; flex-direction: column; gap: var(--space-4); padding: var(--space-8); border: 1px solid var(--line); border-radius: var(--radius-lg); }
+.mk-quote blockquote { margin: 0; font: italic 400 18px/28px var(--font-sans); color: var(--ink); }
+.mk-quote figcaption { font: 700 16px/20px var(--font-sans); color: var(--ink-soft); }
+.mk-quotes { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: var(--space-6); }
+
+/* ---------- ContactFooter ---------- */
+.mk-contact { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: var(--space-12); align-items: end; }
+.mk-contact__title { margin: 0; font: 400 clamp(48px, 7vw, 88px)/1 var(--font-sans); letter-spacing: -.02em; color: var(--ink); }
+.mk-contact__title em { font-style: italic; }
+.mk-contact__title .mk-serif { display: block; padding-left: 30%; font-family: var(--font-serif); letter-spacing: 0; }
+.mk-contact__list { display: flex; flex-direction: column; gap: var(--space-1); color: var(--ink-soft); font-size: 16px; line-height: 24px; font-variant-numeric: tabular-nums; }
+.mk-contact__list address { font-style: normal; margin-top: var(--space-4); }
+.mk-contact__list a { color: inherit; }
+@media (max-width: 720px) { .mk-contact { grid-template-columns: minmax(0, 1fr); } .mk-contact__title .mk-serif { padding-left: 20%; } }
+
+@media (prefers-reduced-motion: reduce) { .mk-btn { transition: none; } .mk-btn:hover { transform: none; } }

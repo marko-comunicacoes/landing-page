@@ -1,0 +1,81 @@
+/* Marko Comunicações — tokens gerados a partir de design-system/project/tokens.json */
+
+@font-face { font-family: "Arimo"; src: url("./fonts/Arimo-Regular.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: "Arimo"; src: url("./fonts/Arimo-Italic.woff2") format("woff2"); font-weight: 400; font-style: italic; font-display: swap; }
+@font-face { font-family: "Arimo"; src: url("./fonts/Arimo-Bold.woff2") format("woff2"); font-weight: 700; font-style: normal; font-display: swap; }
+@font-face { font-family: "Arimo"; src: url("./fonts/Arimo-BoldItalic.woff2") format("woff2"); font-weight: 700; font-style: italic; font-display: swap; }
+@font-face { font-family: "Jost"; src: url("./fonts/Jost-Bold.woff2") format("woff2"); font-weight: 700; font-style: normal; font-display: swap; }
+@font-face { font-family: "Fraunces"; src: url("./fonts/Fraunces-Regular.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: "Fraunces"; src: url("./fonts/Fraunces-Italic.woff2") format("woff2"); font-weight: 400; font-style: italic; font-display: swap; }
+
+:root {
+  /* Paleta */
+  --sage-50: #f3f6ef;
+  --sage-100: #e6eee1;
+  --sage-200: #cad2c5;
+  --sage-300: #95beac;
+  --sage-400: #83a98c;
+  --sage-500: #52796f;
+  --teal-700: #355053;
+  --slate-800: #2f3e46;
+  --ink-950: #191919;
+  --sun-500: #f6a81b;
+
+  /* Funções — tema Marko (verde-petróleo, padrão) */
+  --surface: var(--teal-700);
+  --surface-deep: var(--slate-800);
+  --panel: var(--sage-200);
+  --panel-tile: var(--teal-700);
+  --ink: var(--sage-100);
+  --ink-soft: var(--sage-200);
+  --muted: var(--sage-300);
+  --accent: var(--sage-200);
+  --on-accent: var(--slate-800);
+  --tag: var(--sage-400);
+  --on-tag: var(--slate-800);
+  --highlight: var(--sun-500);
+  --line: rgba(202, 210, 197, 0.55);
+  --focus: var(--sun-500);
+  color-scheme: dark;
+
+  /* Tipografia */
+  --font-sans: "Helvetica World", "Arimo", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-display: "Fashion Fetish Heavy", "Jost", Futura, "Century Gothic", sans-serif;
+  --font-serif: "TT Ramillas", "Fraunces", Georgia, serif;
+
+  /* Espaço */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-24: 96px;
+  --space-32: 128px;
+  --gutter: 8%;
+  --content-max: 1200px;
+
+  /* Forma */
+  --radius-none: 0;
+  --radius-sm: 4px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-pill: 999px;
+}
+
+:root[data-theme="light"] {
+  --surface: var(--sage-50);
+  --surface-deep: var(--sage-100);
+  --panel: var(--teal-700);
+  --panel-tile: var(--slate-800);
+  --ink: var(--slate-800);
+  --ink-soft: var(--teal-700);
+  --muted: var(--sage-500);
+  --accent: var(--teal-700);
+  --on-accent: var(--sage-100);
+  --line: rgba(47, 62, 70, 0.45);
+  --focus: var(--teal-700);
+  color-scheme: light;
+}
