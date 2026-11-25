@@ -1,0 +1,37 @@
+name: marko-landing
+
+services:
+  site:
+    build:
+      context: ./app
+      dockerfile: ../docker/Dockerfile
+    image: marko-landing:latest
+    container_name: marko-landing
+    restart: unless-stopped
+    env_file:
+      - path: docker/.env
+        required: false
+    environment:
+      PORT: 3000
+      DATA_DIR: /data
+    ports:
+      # Só localhost: publique pela internet através do proxy reverso (HTTPS)
+      - "${BIND_ADDR:-127.0.0.1}:${HOST_PORT:-8090}:3000"
+    volumes:
+      - ./data:/data
+    read_only: true
+    tmpfs:
+      - /tmp
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    deploy:
+      resources:
+        limits:
+          memory: 256m
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"

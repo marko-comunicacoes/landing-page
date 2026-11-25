@@ -1,0 +1,92 @@
+/* Marko Comunicações — animações
+   Só valem com html.anim (posto pelo animacoes.js quando o sistema não pede movimento reduzido).
+   Sem JS ou com movimento reduzido, tudo aparece parado e completo. */
+
+:root {
+  --ease: cubic-bezier(.2, .7, .2, 1);
+  --ease-saida: cubic-bezier(.5, 0, .75, 0);
+  --rapido: 160ms;
+  --medio: 320ms;
+  --lento: 800ms;
+}
+
+/* ---------- Revelar ao rolar ---------- */
+html.anim [data-revelar] {
+  opacity: 0; transform: translateY(28px);
+  transition: opacity var(--lento) var(--ease), transform var(--lento) var(--ease);
+  transition-delay: calc(var(--i, 0) * 70ms);
+}
+html.anim [data-revelar].visivel { opacity: 1; transform: none; }
+html.anim [data-revelar="esquerda"] { transform: translateX(-32px); }
+html.anim [data-revelar="zoom"] { transform: scale(.94); }
+html.anim [data-revelar="esquerda"].visivel, html.anim [data-revelar="zoom"].visivel { transform: none; }
+
+/* Cantoneiras se desenham quando o bloco aparece */
+html.anim .mk-bracket::before, html.anim .mk-bracket::after { transition: width .7s var(--ease) .25s, height .7s var(--ease) .25s; }
+html.anim [data-revelar]:not(.visivel) .mk-bracket::before, html.anim [data-revelar]:not(.visivel) .mk-bracket::after,
+html.anim .mk-bracket[data-revelar]:not(.visivel)::before, html.anim .mk-bracket[data-revelar]:not(.visivel)::after { width: 0; height: 0; }
+
+/* Linha das etapas cresce da esquerda */
+html.anim .mk-step { position: relative; border-top-color: transparent; }
+html.anim .mk-step::before { content: ""; position: absolute; top: -1px; left: 0; right: 0; height: 1px; background: var(--line); transform-origin: left; transform: scaleX(0); transition: transform 1s var(--ease) calc(var(--i, 0) * 120ms + 150ms); }
+html.anim .mk-step.visivel::before { transform: none; }
+
+/* ---------- Hero: sequência de entrada ---------- */
+@keyframes subir { from { opacity: 0; transform: translateY(40%); } }
+@keyframes aparecer { from { opacity: 0; } }
+@keyframes assentar { from { opacity: 0; letter-spacing: .32em; filter: blur(6px); } }
+@keyframes cortina { from { clip-path: inset(100% 0 0 0); } }
+@keyframes cantos { from { width: 0; height: 0; } }
+@keyframes flutuar { to { transform: translateY(10px); } }
+
+html.anim .hero__l1 { display: inline-block; animation: subir 1s var(--ease) both .1s; }
+html.anim .hero__l2 { animation: assentar 1.3s var(--ease) both .35s; }
+html.anim .hero .mk-bracket { animation: aparecer .6s ease both .7s; }
+html.anim .hero .mk-bracket::before, html.anim .hero .mk-bracket::after { animation: cantos .7s var(--ease) both .9s; }
+html.anim .hero__lead { animation: subir .9s var(--ease) both .75s; }
+html.anim .hero__acoes { animation: subir .9s var(--ease) both .9s; }
+html.anim .hero__midia { animation: cortina 1.2s var(--ease) both .45s; }
+html.anim .hero__dots { animation: aparecer 1.2s ease both 1s, flutuar 5s ease-in-out 2.2s infinite alternate; }
+html.anim .hero__dots--b { animation-delay: 1.2s, 2.6s; }
+
+/* ---------- Faixa de serviços correndo ---------- */
+@keyframes correr { to { transform: translateX(-50%); } }
+@keyframes girar { to { transform: rotate(360deg); } }
+html.anim .faixa__trilho { animation: correr 42s linear infinite; }
+html.anim .faixa:hover .faixa__trilho { animation-play-state: paused; }
+html.anim .faixa__rosa { animation: girar 9s linear infinite; }
+
+/* ---------- Símbolo: rosa dos ventos gira ao passar o mouse ---------- */
+.mk-tag img { transition: transform 1s var(--ease); }
+html.anim .mk-tag:hover img { transform: rotate(360deg); }
+
+/* ---------- Painel de serviço trocando ---------- */
+@keyframes entrar { from { opacity: 0; transform: translateY(16px); } }
+html.anim .servico.entrando .servico__cab > *,
+html.anim .servico.entrando .servico__galeria > * { animation: entrar .6s var(--ease) both; animation-delay: calc(var(--i, 0) * 70ms); }
+
+/* ---------- Diálogos ---------- */
+@keyframes surgir { from { opacity: 0; transform: translateY(18px) scale(.97); } }
+@keyframes sumir { to { opacity: 0; transform: translateY(12px) scale(.97); } }
+@keyframes escurecer { from { opacity: 0; } }
+html.anim dialog[open] { animation: surgir var(--medio) var(--ease); }
+html.anim dialog[open]::backdrop { animation: escurecer var(--medio) ease; }
+html.anim dialog.fechando { animation: sumir 200ms var(--ease-saida) forwards; }
+html.anim dialog.fechando::backdrop { animation: escurecer 200ms ease reverse forwards; }
+
+/* ---------- Troca de tema suave ---------- */
+html.trocando-tema, html.trocando-tema *, html.trocando-tema *::before, html.trocando-tema *::after {
+  transition: background-color .5s ease, color .5s ease, border-color .5s ease, fill .5s ease !important;
+}
+@keyframes icone-entra { from { opacity: 0; transform: rotate(-120deg) scale(.4); } }
+html.anim .topo__tema .i { animation: icone-entra .5s var(--ease); }
+
+/* ---------- Pequenos retornos ---------- */
+@keyframes pulso { 0% { box-shadow: 0 0 0 0 currentColor; } 70%, 100% { box-shadow: 0 0 0 7px transparent; } }
+@keyframes avisar { from { opacity: 0; transform: translateX(-8px); } }
+html.anim .form__status:not(:empty) { animation: avisar .4s var(--ease); }
+
+@media (prefers-reduced-motion: reduce) {
+  html.anim [data-revelar] { opacity: 1; transform: none; }
+}
+html.anim .form__status.enviado { animation: avisar .4s var(--ease); }

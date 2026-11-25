@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Marko Comunicações — Agência de comunicação em Recife</title>
+  <meta name="description" content="Marko Comunicações: fotografia, vídeo, social mídia, design gráfico e tráfego pago para marcas em Recife e região. Um MARKO para sua MARCA.">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:site_name" content="Marko Comunicações">
+  <meta property="og:title" content="Marko Comunicações — Um MARKO para sua MARCA">
+  <meta property="og:description" content="Fotografia, vídeo, social mídia, design gráfico e tráfego pago em Recife.">
+  <meta property="og:image" content="assets/img/marca/marko-simbolo.jpg">
+  <meta name="theme-color" content="#355053">
+  <link rel="icon" href="assets/img/marca/marko-simbolo.jpg">
+  <link rel="stylesheet" href="assets/css/tokens.css">
+  <link rel="stylesheet" href="assets/css/componentes.css">
+  <link rel="stylesheet" href="assets/css/site.css">
+  <link rel="stylesheet" href="assets/css/animacoes.css">
+</head>
+<body>
+  <a class="pular" href="#trabalho">Pular para o conteúdo</a>
+
+  <header class="topo">
+    <div class="mk-wrap topo__linha">
+      <a class="mk-tag" href="#inicio"><img src="assets/img/marca/marko-simbolo.jpg" alt="" width="28" height="28">Marko Comunicações</a>
+      <nav class="topo__links" aria-label="Seções">
+        <a href="#trabalho">Trabalho</a>
+        <a href="#servicos">Serviços</a>
+        <a href="#clientes">Clientes</a>
+        <a href="#sobre">Sobre</a>
+        <a href="#contato">Contato</a>
+      </nav>
+      <button type="button" class="topo__tema" id="botao-tema" aria-label="Usar tema escuro" title="Usar tema escuro"><svg class="i" aria-hidden="true"><use href="#i-lua"/></svg></button>
+      <a class="mk-btn mk-btn--sm topo__cta" data-whats href="#" target="_blank" rel="noopener">Fale no WhatsApp</a>
+      <button type="button" class="topo__menu" aria-expanded="false" aria-controls="menu-mobile" aria-label="Abrir menu"><svg class="i" aria-hidden="true"><use href="#i-menu"/></svg></button>
+    </div>
+    <nav class="menu-mobile" id="menu-mobile" aria-label="Menu" hidden>
+      <div class="mk-wrap">
+        <a href="#trabalho">Trabalho</a><a href="#servicos">Serviços</a><a href="#clientes">Clientes</a><a href="#sobre">Sobre</a><a href="#contato">Contato</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="inicio" aria-labelledby="hero-titulo">
+      <div class="mk-wrap hero__grade">
+        <div class="hero__texto">
+          <div class="mk-dots hero__dots" aria-hidden="true"></div>
+          <h1 class="hero__titulo" id="hero-titulo">
+            <span class="hero__l1" data-c="hero.linha1"></span>
+            <span class="hero__l2row"><span class="mk-bracket" data-c="hero.rotulo"></span><span class="hero__l2" data-c="hero.linha2"></span></span>
+          </h1>
+          <p class="hero__lead" data-c="hero.texto"></p>
+          <div class="hero__acoes">
+            <a class="mk-btn" href="#contato"><span data-c="hero.cta"></span> <span class="mk-btn__seta">→</span></a>
+            <a class="mk-btn mk-btn--outline" href="#trabalho">Ver trabalhos</a>
+          </div>
+        </div>
+        <figure class="hero__midia" id="hero-midia"></figure>
+        <div class="mk-dots hero__dots hero__dots--b" aria-hidden="true"></div>
+      </div>
+    </section>
+
+    <div class="faixa" aria-hidden="true"><div class="faixa__trilho" id="faixa-trilho"></div></div>
+
+    <section class="mk-section" id="trabalho" aria-labelledby="trabalho-titulo">
+      <div class="mk-wrap mk-stack">
+        <div class="mk-title-row">
+          <h2 class="mk-title" id="trabalho-titulo" data-m="trabalho.titulo"></h2>
+          <p class="mk-bracket mk-bracket--texto" data-c="trabalho.texto"></p>
+        </div>
+        <div class="mk-mosaic" id="mosaico"></div>
+        <div class="centro"><a class="mk-btn" href="#servicos">Saiba Mais</a></div>
+      </div>
+    </section>
+
+    <section class="mk-section" id="servicos" aria-labelledby="servicos-titulo">
+      <div class="mk-wrap mk-stack">
+        <div class="mk-title-row">
+          <div><h2 class="mk-title" id="servicos-titulo" data-m="servicos.titulo"></h2><p class="mk-note" data-c="servicos.nota"></p></div>
+          <span class="mk-bracket" data-c="servicos.rotulo"></span>
+        </div>
+        <div class="mk-services" id="lista-servicos" role="tablist" aria-label="Serviços"></div>
+        <article class="servico" id="servico-painel" role="tabpanel" aria-live="polite"></article>
+      </div>
+    </section>
+
+    <section class="mk-section" id="clientes" aria-labelledby="clientes-titulo">
+      <div class="mk-wrap mk-stack">
+        <h2 class="mk-title" id="clientes-titulo" data-m="clientes.titulo"></h2>
+        <div class="mk-clients" id="mural-clientes"></div>
+      </div>
+    </section>
+
+    <section class="mk-section sobre" id="sobre" aria-labelledby="sobre-titulo">
+      <div class="mk-wrap mk-stack">
+        <div class="mk-title-row">
+          <h2 class="mk-title" id="sobre-titulo" data-m="sobre.titulo"></h2>
+          <p class="sobre__frase">“<span data-c="sobre.frase"></span>”</p>
+        </div>
+        <p class="sobre__texto" data-c="sobre.texto"></p>
+        <div class="fundador">
+          <figure class="fundador__foto"><img id="fundador-foto" src="" alt=""></figure>
+          <div class="fundador__corpo">
+            <p class="mk-bracket" data-c="sobre.fundador.cargo"></p>
+            <h3 class="fundador__nome">Olá, sou <strong data-c="sobre.fundador.nome"></strong></h3>
+            <p class="fundador__texto" data-c="sobre.fundador.texto"></p>
+            <p class="fundador__rotulo">Prestou serviços em</p>
+            <ul class="parceiros" id="parceiros"></ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="mk-section" id="depoimentos" aria-labelledby="depo-titulo">
+      <div class="mk-wrap mk-stack">
+        <h2 class="mk-title" id="depo-titulo" data-m="depoimentos.titulo"></h2>
+        <div class="mk-quotes" id="lista-depoimentos"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="mk-section mk-section--deep contato" id="contato" aria-labelledby="contato-titulo">
+    <div class="mk-wrap contato__grade">
+      <div class="contato__chamada">
+        <h2 class="contato__titulo" id="contato-titulo" data-m="contato.titulo"></h2>
+        <form class="form" id="form-contato" novalidate>
+          <div class="form__linha">
+            <label class="campo"><span>Seu nome</span><input id="f-nome" name="nome" autocomplete="name" required></label>
+            <label class="campo"><span>WhatsApp</span><input id="f-tel" name="tel" inputmode="tel" autocomplete="tel" placeholder="(81) 9 0000-0000" required></label>
+          </div>
+          <label class="campo"><span>Empresa</span><input id="f-empresa" name="empresa" autocomplete="organization"></label>
+          <fieldset class="campo campo--chips"><legend>O que você precisa?</legend><div class="chips" id="f-servicos"></div></fieldset>
+          <label class="campo"><span>Conte um pouco</span><textarea id="f-msg" name="msg" rows="3"></textarea></label>
+          <label class="armadilha" aria-hidden="true">Não preencha<input name="site" id="f-site" tabindex="-1" autocomplete="off"></label>
+          <div class="form__acoes">
+            <button class="mk-btn" type="submit">Enviar pedido de orçamento <span class="mk-btn__seta">→</span></button>
+            <p class="form__status" id="form-status" role="status"></p>
+          </div>
+        </form>
+      </div>
+      <div class="contato__dados">
+        <ul class="contato__lista">
+          <li><svg class="i" aria-hidden="true"><use href="#i-email"/></svg><span data-c="contato.email"></span></li>
+          <li><svg class="i" aria-hidden="true"><use href="#i-whatsapp"/></svg><a data-whats href="#" target="_blank" rel="noopener"><span data-c="contato.telefone"></span></a></li>
+          <li><svg class="i" aria-hidden="true"><use href="#i-instagram"/></svg><a id="link-insta" href="#" target="_blank" rel="noopener">@<span data-c="contato.instagram"></span></a></li>
+          <li><svg class="i" aria-hidden="true"><use href="#i-link"/></svg><a id="link-tree" href="#" target="_blank" rel="noopener"><span data-c="contato.linktree"></span></a></li>
+          <li><svg class="i" aria-hidden="true"><use href="#i-pin"/></svg><address><span data-c="contato.endereco1"></span><br><span data-c="contato.endereco2"></span></address></li>
+        </ul>
+        <a class="mk-btn mk-btn--outline" data-whats href="#" target="_blank" rel="noopener"><span data-c="contato.chamada"></span> <span class="mk-btn__seta">→</span></a>
+      </div>
+    </div>
+    <div class="mk-wrap"><div class="rodape">
+      <a class="mk-tag" href="#inicio"><img src="assets/img/marca/marko-simbolo.jpg" alt="" width="28" height="28">Marko Comunicações</a>
+      <p>Um MARKO para sua MARCA · Recife, PE</p>
+    </div></div>
+  </footer>
+
+  <dialog class="caixa" id="caixa" aria-label="Visualizar trabalho">
+    <button type="button" class="caixa__fechar" data-fechar aria-label="Fechar"><svg class="i" aria-hidden="true"><use href="#i-fechar"/></svg></button>
+    <div class="caixa__midia" id="caixa-midia"></div>
+    <p class="caixa__legenda" id="caixa-legenda"></p>
+  </dialog>
+
+
+  <script src="config-publicada.js"></script>
+  <script src="assets/js/config.js"></script>
+  <script src="assets/js/animacoes.js"></script>
+  <script src="assets/js/site.js"></script>
+</body>
+</html>

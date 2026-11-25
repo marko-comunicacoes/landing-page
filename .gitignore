@@ -1,0 +1,28 @@
+# Dependências
+node_modules/
+
+# Segredos
+.env
+.env.local
+docker/.env
+sast-sca/sonarqube/.env
+
+# Dados persistentes (config publicada, uploads, pedidos)
+data/*
+!data/.gitkeep
+
+# Relatórios de SAST / SCA
+sast-sca/trivy/reports/*
+!sast-sca/trivy/reports/.gitkeep
+sast-sca/trivy/.trivy/
+sast-sca/bearer/reports/*
+!sast-sca/bearer/reports/.gitkeep
+.scannerwork/
+
+# Sistema e editores
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.log
