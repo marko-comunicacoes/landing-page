@@ -1,4 +1,4 @@
-/* Marko Comunicações — tokens gerados a partir de design-system/project/tokens.json */
+/* Marko Comunicações — estilos e tokens */
 
 @font-face { font-family: "Arimo"; src: url("./fonts/Arimo-Regular.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
 @font-face { font-family: "Arimo"; src: url("./fonts/Arimo-Italic.woff2") format("woff2"); font-weight: 400; font-style: italic; font-display: swap; }
@@ -21,11 +21,9 @@
   --ink-950: #191919;
   --sun-500: #f6a81b;
 
-  /* Funções — tema Marko (verde-petróleo, padrão) */
+  /* Tema Marko (verde-petróleo) */
   --surface: var(--teal-700);
   --surface-deep: var(--slate-800);
-  --panel: var(--sage-200);
-  --panel-tile: var(--teal-700);
   --ink: var(--sage-100);
   --ink-soft: var(--sage-200);
   --muted: var(--sage-300);
@@ -65,17 +63,88 @@
   --radius-pill: 999px;
 }
 
-:root[data-theme="light"] {
-  --surface: var(--sage-50);
-  --surface-deep: var(--sage-100);
-  --panel: var(--teal-700);
-  --panel-tile: var(--slate-800);
-  --ink: var(--slate-800);
-  --ink-soft: var(--teal-700);
-  --muted: var(--sage-500);
-  --accent: var(--teal-700);
-  --on-accent: var(--sage-100);
-  --line: rgba(47, 62, 70, 0.45);
-  --focus: var(--teal-700);
-  color-scheme: light;
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; min-height: 100%; }
+
+body {
+  background: var(--surface);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 24px;
 }
+
+.mk-construction {
+  min-height: 100dvh;
+  padding-block: var(--space-24);
+  padding-left: max(var(--space-4), var(--gutter));
+  padding-right: max(var(--space-4), var(--gutter));
+  display: flex;
+  flex-direction: column;
+}
+
+@media (min-width: 900px) {
+  .mk-construction { padding-block: var(--space-32); }
+}
+
+.mk-inner {
+  width: 100%;
+  max-width: var(--content-max);
+  margin-inline: auto;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--space-12);
+}
+
+.mk-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--space-4);
+}
+
+.mk-dots {
+  width: calc(var(--space-6) * 5);
+  height: calc(var(--space-6) * 4);
+  background-image: radial-gradient(circle, var(--line) 1.6px, transparent 2px);
+  background-size: var(--space-6) var(--space-6);
+}
+
+.mk-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-1) var(--space-2) var(--space-1) var(--space-1);
+  background: var(--tag);
+  color: var(--on-tag);
+  border-radius: var(--radius-sm);
+  font: 400 16px/20px var(--font-sans);
+}
+
+.mk-tag img {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: block;
+}
+
+.mk-main {
+  margin-block: auto;
+  padding-block: var(--space-16);
+}
+
+.mk-title {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: clamp(40px, 6vw, 72px);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  text-wrap: balance;
+}
+
+.mk-title em { font-style: italic; }
+.mk-title strong { font-weight: 700; }
